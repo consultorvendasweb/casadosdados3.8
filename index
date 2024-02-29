@@ -3,73 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOT-CASA DOS DADOS 3.8</title>
+    <title>Sistema de Captura</title>
 
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: url('https://i.ibb.co/mc3Gf52/casadosdados-background.png') center/cover fixed no-repeat;
+            background: url('https://i.ibb.co/HPKHK8X/C-pia-de-EXTRACTOR-2.png') center/cover fixed no-repeat;
             margin: 0;
             padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            position: relative; /* Para posicionar os botões flutuantes */
+            position: relative; /* Para posicionar o botão flutuante */
         }
 
-        #landingPage {
-            max-width: 600px; /* Ajuste a largura máxima da página */
+        #loginPage, #mainPage {
+            max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #2980b9;
         }
 
         h1 {
+            text-align: center;
             margin-bottom: 20px;
             color: #3498db;
         }
 
-        p {
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        video {
-            border-radius: 8px;
-            width: 100%; /* Define a largura do vídeo para preencher a largura do contêiner */
-            max-width: 100%; /* Garante que o vídeo não ultrapasse a largura máxima do contêiner */
-            height: auto; /* Permite que a altura seja ajustada automaticamente para manter a proporção original do vídeo */
-            margin-bottom: 20px; /* Adiciona espaço entre o vídeo e o botão CTA */
-            margin-top: 20px; /* Adiciona margem superior para mover o vídeo para baixo */
-        }
-
-        button {
-            padding: 15px 30px;
-            background-color: transparent; /* Remove o fundo do botão */
-            color: #3498db; /* Cor do texto do botão */
-            border: 2px solid #3498db; /* Adiciona uma borda ao botão */
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease; /* Adicionando transição para animação */
-            animation: pulse 2s infinite; /* Animação de pulso */
-            margin-top: 20px; /* Adiciona espaço entre o vídeo e o botão CTA */
-        }
-
-        button:hover {
-            background-color: #3498db; /* Cor de fundo do botão quando o mouse está sobre ele */
-            color: #fff; /* Cor do texto do botão quando o mouse está sobre ele */
-            transform: scale(1.05); /* Efeito de escala ao passar o mouse */
-        }
-        .whatsapp-button {
+        /* Estilos para o botão flutuante */
+        .floating-button {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 999;
-            animation: pulse 2s infinite; /* Adiciona a animação pulsante */
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite; /* Animação de pulso */
         }
 
         @keyframes pulse {
@@ -90,25 +92,51 @@
 </head>
 <body>
 
-<!-- Conteúdo da Landing Page -->
-<div id="landingPage">
-    <h1></h1>
-    <p></p>
-    <!-- Vídeo local -->
-    <video controls autoplay width="400"> <!-- Ajuste a largura do vídeo conforme necessário -->
-        <source src="videotestevslpages.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <!-- Botão CTA -->
-    <button onclick="irParaPlataforma()">Compre Agora</button>
+<!-- Botão flutuante para solicitar a senha -->
+<button class="floating-button" onclick="solicitarSenha()">Solicite a Sua Senha</button>
+
+<!-- Página de Login -->
+<div id="loginPage">
+    <h1>ExtratorLeads</h1>
+    <form id="loginForm">
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" required value=""><br>
+
+        <label for="password">Senha:</label>
+        <input type="password" id="password" required value=""><br>
+
+        <button type="button" onclick="realizarLogin()">Login</button>
+    </form>
 </div>
-<a href="https://wa.me/5516991981760" class="whatsapp-button" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/128/3670/3670051.png" alt="WhatsApp">
-</a>
+
+<!-- Página Principal -->
+<div id="mainPage" style="display: none;">
+    <h1>ExtratorLeads</h1>
+    <button onclick="executarScript()">Executar Script</button>
+</div>
+
 <script>
-    function irParaPlataforma() {
-        // Redirecionar o usuário para a plataforma digital onde o produto está disponível para compra
-        window.location.href = 'https://pay.kiwify.com.br/HzVMqXN'; // Substitua URL_DA_SUA_PLATAFORMA_DIGITAL pelo link correto
+    function realizarLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Verifica as credenciais (substitua isso com sua lógica real)
+        if (username === 'Teste' && password === '*******') {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
+        } else {
+            alert('Login inválido. Tente novamente.');
+        }
+    }
+
+    function executarScript() {
+        alert("Script executado com sucesso!");
+        // Aqui você pode adicionar o código JavaScript que deseja executar após o login
+    }
+
+    function solicitarSenha() {
+        // Redirecionar o usuário para o WhatsApp
+        window.location.href = 'https://t.me/+V_jLYD98rtgxNjIx'; // Substitua SEU_NUMERO pelo seu número do WhatsApp
     }
 </script>
 
